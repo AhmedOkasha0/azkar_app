@@ -40,6 +40,7 @@ class ThemeScreen {
     primaryColor: Color(0xffB7935F),
     dividerColor: Color(0xffB7935F),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
+
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.white,
       showSelectedLabels: true,

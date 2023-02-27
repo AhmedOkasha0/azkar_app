@@ -1,32 +1,51 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:islami/model/ResponsRadio.dart';
 
-class RadioItem extends StatelessWidget {
+class RadioItem extends StatefulWidget {
   Radios radios;
-  RadioItem(this.radios);
+  AudioPlayer audioPlayer;
+  RadioItem({required this.radios, required this.audioPlayer});
 
   @override
+  State<RadioItem> createState() => _RadioItemState();
+}
+
+class _RadioItemState extends State<RadioItem> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
         Text(
-          radios.name??''
+          widget.radios.name ?? '',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 25,
+          ),
         ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(onPressed: (){}, icon:Icon(Icons.play_arrow_rounded),
-              ),
-              IconButton(onPressed: (){}, icon: Icon(Icons.pause)),
-              IconButton(onPressed: (){}, icon: Icon(Icons.play_arrow_rounded)),
-            ],
-          )
-        ],
-      ),
-
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: play,
+              icon: Icon(Icons.play_arrow_rounded),
+            ),
+            IconButton(onPressed: pause, icon: Icon(Icons.pause)),
+          ],
+        )
+      ],
     );
+  }
+
+  void play() async {
+    if (widget.radios.url != null) {
+      return widget.audioPlayer.play(UrlSource(widget.radios.url!));
+    }
+  }
+
+  void pause() async {
+    await widget.audioPlayer.pause();
   }
 }
